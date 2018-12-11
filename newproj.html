@@ -11,16 +11,16 @@
     }
     #mainDiv
     {
-      background:rgba(4,24,154,1);
-      width:800px;
+      background:rgba(4,24,54,1);
+      width:500px;
       margin:auto;
       height:150px;
       border-radius:10px;
     }
     #result
     {
-      background:rgba(4,24,154,1);
-      width:800px;
+      background:rgba(4,24,54,1);
+      width:500px;
       margin:auto;
       height:150px;
       border-radius:10px;
@@ -51,41 +51,48 @@
           <tr>
             <td>City</td>
             <td>Country</td>
-            <td colspan="1"><button type="button" name="GetData">GetData</button></td>
+            <td colspan="1"><button type="button" onclick="getWeather()">GetData</button></td>
           </tr>
           <tr>
-            <td><input type="text" name="City"></td>
-            <td><input type="text" name="Country"></td>
+            <td><input type="text" id="City"></td>
+            <td><input type="text" id="Country"></td>
         </table>
         </div><br>
         <div>
         <table id="result">
           <tr>
-            <td>Temp</td>
-            <td></td>
+            <td><div>Temperature</div></td>
+            <td><div id="temp"></div></td>
           </tr>
-          <tr>
-            <td>Humidity</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>People</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Longitude</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Lattitude</td>
-            <td><td>
-           </tr>
         </table>
 
     </div>
+  <script type="text/javascript">
+    function getWeather()
+    {
+      let city = document.getElementById('City').value;
+      let country = document.getElementById('Country').value;
+      console.log("city: "+city+" country: "+country);
+      let appid="5b42f9ac553deda745fc2d0486540ec8";
+      let req="http://api.openweathermap.org/data/2.5/forecast?";
+      req=req+"q="+city;
+      req=req+","+country;
+      req=req+"&mode=HTML";
+      req=req+"&appid="+appid;
+      console.log(req);
+      let xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function()
+      {
+        if (this.readyState == 4 && this.status == 200)
+        {
+          let obj=JSON.parse(this.responseText);
+          document.getElementById("temp").innerHTML = Math.round((obj.list[0].main.temp-273.15)*100)/100;
+
+        }
+      };
+      xhttp.open("GET",req,true);
+      xhttp.send();
+    }
+  </script>
   </body>
 </html>
