@@ -6,7 +6,8 @@
     <style>
     body
     {
-      background:rgb(22, 119, 216);
+
+      background-image: url("bg.jpg");
       align: center;
       color: black;
       font-family:serif;
@@ -65,12 +66,12 @@
            margin:5%;
            height:250px;
            border-radius:30px;
-           margin-right: 30px;
+           margin-right: 40px;
 
          }
     #mainDiv
     {
-      border-color: black;
+      /*border-color: black;*/
       border: 1px;
       background:rgb(77, 153, 228);
       width:500px;
@@ -116,7 +117,7 @@
 
 
   <div align="center">
-    <table border="1px">
+    <table >
     <tr><td><div id="tmp" align="center">
         Temperature
           <img src="thermometer.jpg" width="250px" height="200">
@@ -188,7 +189,11 @@
 
     function weatherimg()
     {
-      if(weather="snowy")
+      switch (wthrimg)
+      {
+        case weather="clear sky"
+      }
+      /*if(weather="snowy")
       {
       document.getElementById("weather").innerHTML = "<img src=\"snowy.png\">";
       }
@@ -196,7 +201,7 @@
       {
       document.getElementById("weather").innerHTML = "<img src=\"cloudy.png\">";
       }
-      else if(weather="clear")
+      else if(weather="clear sky")
       {
       document.getElementById("weather").innerHTML = "<img src=\"sunny.png\">";
       }
@@ -211,7 +216,7 @@
       else
       {
       document.getElementById("weather").innerHTML = "<img src=\"lightning.png\">";
-      }
+    }*/
     }
 
     //console.log(req);
