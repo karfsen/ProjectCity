@@ -6,24 +6,78 @@
     <style>
     body
     {
+      background:rgb(22, 119, 216);
       align: center;
-      color: red;
+      color: black;
+      font-family:serif;
+      font-size: 20px;
     }
+    #temp
+    {
+      margin: auto;
+    }
+    #tmp
+     {
+       background:lightgreen;
+       width:250px;
+       margin:5%;
+       height:250px;
+       border-radius:30px;
+       margin-right: 60px;
+     }
+     #hm
+      {
+        background:lightblue;
+        width:250px;
+        margin:5%;
+        height:250px;
+        border-radius:30px;
+         margin-right: 60px;
+      }
+
+      #prs
+       {
+
+         background:red;
+         width:250px;
+         margin:5%;
+         height:250px;
+         border-radius:30px;
+         margin-right: 60px;
+       }
+       #wnd
+        {
+
+          background:grey;
+          width:250px;
+          margin:5%;
+          height:250px;
+          border-radius:30px;
+          margin-right: 60px;
+
+        }
+
+        #weather
+         {
+
+           background:white;
+           width:250px;
+           margin:5%;
+           height:250px;
+           border-radius:30px;
+           margin-right: 30px;
+
+         }
     #mainDiv
     {
-      background:rgba(4,24,54,1);
+      border-color: black;
+      border: 1px;
+      background:rgb(77, 153, 228);
       width:500px;
       margin:auto;
-      height:150px;
-      border-radius:10px;
-    }
-    #result
-    {
-      background:rgba(4,24,54,1);
-      width:500px;
-      margin:auto;
-      height:150px;
-      border-radius:10px;
+      height:75px;
+      border-radius:30px;
+      align-items: center;
     }
     input
     {
@@ -36,43 +90,75 @@
     }
     button
     {
-
-    width:80px;
-    height:80px;
+    color: blue;
+    width:100px;
+    height:30px;
     margin-left:30px;
+    border-radius:30px;
 
     }
 
     </style>
   </head>
   <body>
-    <div id="mainDiv">
+    <div id="mainDiv" align="center">
         <table id="mainT">
           <tr>
             <td>City</td>
             <td>Country</td>
-            <td colspan="1"><button type="button" onclick="getWeather()">GetData</button></td>
           </tr>
           <tr>
             <td><input type="text" id="City"></td>
             <td><input type="text" id="Country"></td>
+            <td colspan="1"><button type="button" onclick="getWeather()">GetData</button></td>
         </table>
-        </div><br>
-        <div>
-        <table id="result">
-          <tr>
-            <td><div>Temperature</div></td>
-            <td><div id="temp"></div></td>
-          </tr>
-        </table>
+    </div><br>
 
-    </div>
+
+  <div align="center">
+    <table border="1px">
+    <tr><td><div id="tmp" align="center">
+        Temperature
+          <img src="thermometer.jpg" width="250px" height="200">
+          <div id="temp"></div>
+      </div></td>
+
+      <td rowspan="2"><div id="weather" align="center">
+         Weather
+         <img src="sunny.png" width="250px" height="200">
+         <div id="wthr"></div>
+       </div></td>
+
+      <td><div id="hm" align="center">
+         Humidity
+         <img src="humidity.jpg" width="250px" height="200">
+         <div id="hum"></div>
+       </div></td>
+    </tr>
+
+    <tr><td><div id="wnd" align="center">
+      Wind speed
+          <img src="wind.svg" width="250px" height="200">
+          <div id="wind"></div>
+      </div></td>
+
+      <td><div id="prs" align="center">
+        Pressure <br>
+          <img src="pressure.png" width="250px" height="200">
+          <div id="pressure"></div>
+      </div></td>
+    </tr>
+  </table></div>
+
+
+
+
   <script type="text/javascript">
     function getWeather()
     {
       let city = document.getElementById('City').value;
       let country = document.getElementById('Country').value;
-      console.log("city: "+city+" country: "+country);
+      //console.log("city: "+city+" country: "+country);
       let appid="5b42f9ac553deda745fc2d0486540ec8";
       let req="http://api.openweathermap.org/data/2.5/forecast?";
       req=req+"q="+city;
@@ -87,12 +173,48 @@
         {
           let obj=JSON.parse(this.responseText);
           document.getElementById("temp").innerHTML = Math.round((obj.list[0].main.temp-273.15)*100)/100;
-
+          document.getElementById("hum").innerHTML = obj.list[0].main.humidity+"%";
+          document.getElementById("pressure").innerHTML = obj.list[0].main.pressure+" Pa";
+          document.getElementById("wind").innerHTML = obj.list[0].wind.speed+" km/h";
+          let weather=obj.list[0].weather.description;
+          document.getElementById("weather").innerHTML = obj.list[0].weather.description;
+          weatherimg();
         }
       };
       xhttp.open("GET",req,true);
       xhttp.send();
     }
+
+
+    function weatherimg()
+    {
+      if(weather="snowy")
+      {
+      document.getElementById("weather").innerHTML = "<img src=\"snowy.png\">";
+      }
+      else if(weather="few clouds")
+      {
+      document.getElementById("weather").innerHTML = "<img src=\"cloudy.png\">";
+      }
+      else if(weather="clear")
+      {
+      document.getElementById("weather").innerHTML = "<img src=\"sunny.png\">";
+      }
+      else if(weather=="scattered clouds" || weather=="broken clouds")
+      {
+      document.getElementById("weather").innerHTML = "<img src=\"clouds.png\">";
+      }
+      else if(weather=="rain" || weather=="shower rain")
+      {
+      document.getElementById("weather").innerHTML = "<img src=\"raining.png\">";
+      }
+      else
+      {
+      document.getElementById("weather").innerHTML = "<img src=\"lightning.png\">";
+      }
+    }
+
+    //console.log(req);
   </script>
   </body>
 </html>
