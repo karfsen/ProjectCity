@@ -124,11 +124,9 @@
           <div id="temp"></div>
       </div></td>
 
-      <td rowspan="2"><div id="weather" align="center">
-         Weather
+      <td rowspan="2"><div id="weather" align="center">Weather<div id="wether" align="center">
          <img src="sunny.png" width="250px" height="200">
-         <div id="wthr"></div>
-       </div></td>
+       </div><div id="wthr"></div></div></td>
 
       <td><div id="hm" align="center">
          Humidity
@@ -177,9 +175,32 @@
           document.getElementById("hum").innerHTML = obj.list[0].main.humidity+"%";
           document.getElementById("pressure").innerHTML = obj.list[0].main.pressure+" Pa";
           document.getElementById("wind").innerHTML = obj.list[0].wind.speed+" km/h";
-          let weather=obj.list[0].weather.description;
-          document.getElementById("weather").innerHTML = obj.list[0].weather.description;
-          weatherimg();
+          //let weather=obj.list[0].weather[0].main;
+          document.getElementById("wthr").innerHTML = obj.list[0].weather[0].main;
+          if(obj.list[0].weather[0].main=="Snow")
+          {
+          document.getElementById("wether").innerHTML = "<img src=\"snowy.png\">";
+          }
+          else if(obj.list[0].weather[0].main=="Atmosphere")
+          {
+          document.getElementById("wether").innerHTML = "<img src=\"cloudy.png\">";
+          }
+          else if(obj.list[0].weather[0].main=="Clear")
+          {
+          document.getElementById("wether").innerHTML = "<img src=\"sunny.png\">";
+          }
+          else if(obj.list[0].weather[0].main=="Clouds")
+          {
+          document.getElementById("wether").innerHTML = "<img src=\"clouds.png\">";
+          }
+          else if(obj.list[0].weather[0].main=="Rain")
+          {
+          document.getElementById("wether").innerHTML = "<img src=\"raining.png\">";
+          }
+          else
+          {
+          document.getElementById("wether").innerHTML = "<img src=\"lightning.png\">";
+          }
         }
       };
       xhttp.open("GET",req,true);
@@ -187,37 +208,35 @@
     }
 
 
-    function weatherimg()
+    /*function weatherimg()
     {
-      switch (wthrimg)
-      {
-        case weather="clear sky"
-      }
-      /*if(weather="snowy")
-      {
-      document.getElementById("weather").innerHTML = "<img src=\"snowy.png\">";
-      }
-      else if(weather="few clouds")
-      {
-      document.getElementById("weather").innerHTML = "<img src=\"cloudy.png\">";
-      }
-      else if(weather="clear sky")
-      {
-      document.getElementById("weather").innerHTML = "<img src=\"sunny.png\">";
-      }
-      else if(weather=="scattered clouds" || weather=="broken clouds")
-      {
-      document.getElementById("weather").innerHTML = "<img src=\"clouds.png\">";
-      }
-      else if(weather=="rain" || weather=="shower rain")
-      {
-      document.getElementById("weather").innerHTML = "<img src=\"raining.png\">";
-      }
-      else
-      {
-      document.getElementById("weather").innerHTML = "<img src=\"lightning.png\">";
+
+
+        if(obj.list[0].weather[0].main=="Snow")
+        {
+        document.getElementById("weather").innerHTML = "<img src=\"snowy.png\">";
+        }
+        else if(obj.list[0].weather[0].main=="Atmosphere")
+        {
+        document.getElementById("weather").innerHTML = "<img src=\"cloudy.png\">";
+        }
+        else if(obj.list[0].weather[0].main=="Clear")
+        {
+        document.getElementById("weather").innerHTML = "<img src=\"sunny.png\">";
+        }
+        else if(obj.list[0].weather[0].main=="Clouds")
+        {
+        document.getElementById("weather").innerHTML = "<img src=\"clouds.png\">";
+        }
+        else if(obj.list[0].weather[0].main=="Rain")
+        {
+        document.getElementById("weather").innerHTML = "<img src=\"raining.png\">";
+        }
+        else
+        {
+        document.getElementById("weather").innerHTML = "<img src=\"lightning.png\">";
+        }
     }*/
-    }
 
     //console.log(req);
   </script>
